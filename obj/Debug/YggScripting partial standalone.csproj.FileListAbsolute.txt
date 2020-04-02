@@ -1,0 +1,11 @@
+D:\games\mo2 test instance\mods\C# port\YggScripting partial standalone\bin\Debug\YggScripting partial standalone.exe.config
+D:\games\mo2 test instance\mods\C# port\YggScripting partial standalone\bin\Debug\YggScripting partial standalone.exe
+D:\games\mo2 test instance\mods\C# port\YggScripting partial standalone\bin\Debug\YggScripting partial standalone.pdb
+D:\games\mo2 test instance\mods\C# port\YggScripting partial standalone\obj\Debug\YggScripting partial standalone.csprojAssemblyReference.cache
+D:\games\mo2 test instance\mods\C# port\YggScripting partial standalone\obj\Debug\YggScripting_partial_standalone.Form1.resources
+D:\games\mo2 test instance\mods\C# port\YggScripting partial standalone\obj\Debug\YggScripting_partial_standalone.Properties.Resources.resources
+D:\games\mo2 test instance\mods\C# port\YggScripting partial standalone\obj\Debug\YggScripting partial standalone.csproj.GenerateResource.cache
+D:\games\mo2 test instance\mods\C# port\YggScripting partial standalone\obj\Debug\YggScripting partial standalone.csproj.CoreCompileInputs.cache
+D:\games\mo2 test instance\mods\C# port\YggScripting partial standalone\obj\Debug\YggScripting partial standalone.exe
+D:\games\mo2 test instance\mods\C# port\YggScripting partial standalone\obj\Debug\YggScripting partial standalone.pdb
+D:\games\mo2 test instance\mods\C# port\YggScripting partial standalone\obj\Debug\YggScripting_partial_standalone.Form2.resources
