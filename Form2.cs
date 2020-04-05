@@ -12,6 +12,7 @@ namespace YggScripting_partial_standalone
 {
 	public partial class Form2 : Form
 	{
+		public string[] TrustList;
 		public Form2()
 		{
 			InitializeComponent();
@@ -31,6 +32,16 @@ namespace YggScripting_partial_standalone
 					this.TrustONo.Items.Add(line);
 				}
 			}
+			if (TrustList.Length != 0)
+			{
+				for (int count = 0; count < TrustONo.Items.Count; count++)
+				{
+					if (TrustList.Contains(TrustONo.Items[count].ToString()))
+					{
+						TrustONo.SetItemChecked(count, true);
+					}
+				}
+			}
 		}
 		private void Form2_Resize(object sender, EventHandler e)
 		{
@@ -41,8 +52,12 @@ namespace YggScripting_partial_standalone
 
 		private void TrustONo_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			foreach (string item in TrustONo.CheckedItems)
+			for (int i = 0; i < TrustONo.CheckedItems.Count; i++)
+			{
+				string item = TrustONo.CheckedItems[i].ToString();
 				this.TrustONo.Items.Add(item);
+				TrustList[i] = item;
+			}
 		}
 	}
 }

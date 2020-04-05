@@ -59,6 +59,11 @@ namespace YggScripting_partial_standalone
 			long avgB = totals[0] / (width * height);
 			long avgG = totals[1] / (width * height);
 			long avgR = totals[2] / (width * height);
+			return ColorNameFromRGB(avgB, avgG, avgR);
+		}
+
+		private static string ColorNameFromRGB(long avgB, long avgG, long avgR)
+		{
 			Color acolor = Color.FromArgb((int)avgR, (int)avgG, (int)avgB);
 			Console.WriteLine(acolor.Name); // ffff0000
 

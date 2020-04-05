@@ -9,3 +9,14 @@ D:\games\mo2 test instance\mods\C# port\YggScripting partial standalone\obj\Debu
 D:\games\mo2 test instance\mods\C# port\YggScripting partial standalone\obj\Debug\YggScripting partial standalone.exe
 D:\games\mo2 test instance\mods\C# port\YggScripting partial standalone\obj\Debug\YggScripting partial standalone.pdb
 D:\games\mo2 test instance\mods\C# port\YggScripting partial standalone\obj\Debug\YggScripting_partial_standalone.Form2.resources
+C:\Users\yggdrasil75\Source\Repos\BalancersForSSE\bin\Debug\YggScripting partial standalone.exe.config
+C:\Users\yggdrasil75\Source\Repos\BalancersForSSE\bin\Debug\YggScripting partial standalone.exe
+C:\Users\yggdrasil75\Source\Repos\BalancersForSSE\bin\Debug\YggScripting partial standalone.pdb
+C:\Users\yggdrasil75\Source\Repos\BalancersForSSE\obj\Debug\YggScripting partial standalone.csprojAssemblyReference.cache
+C:\Users\yggdrasil75\Source\Repos\BalancersForSSE\obj\Debug\YggScripting_partial_standalone.Form1.resources
+C:\Users\yggdrasil75\Source\Repos\BalancersForSSE\obj\Debug\YggScripting_partial_standalone.Form2.resources
+C:\Users\yggdrasil75\Source\Repos\BalancersForSSE\obj\Debug\YggScripting_partial_standalone.Properties.Resources.resources
+C:\Users\yggdrasil75\Source\Repos\BalancersForSSE\obj\Debug\YggScripting partial standalone.csproj.GenerateResource.cache
+C:\Users\yggdrasil75\Source\Repos\BalancersForSSE\obj\Debug\YggScripting partial standalone.csproj.CoreCompileInputs.cache
+C:\Users\yggdrasil75\Source\Repos\BalancersForSSE\obj\Debug\YggScripting partial standalone.exe
+C:\Users\yggdrasil75\Source\Repos\BalancersForSSE\obj\Debug\YggScripting partial standalone.pdb
