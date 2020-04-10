@@ -1,58 +1,68 @@
 unit YggJsonSerialize;
 
 const
-	MainDir := DataPath + '/tools/YggScript/Jsons/';
+	MainDir = DataPath + '\tools\YggScript\Jsons\';
 	
-function initialize;
+function initialize: integer;
 var
-	i,j:integer;
+	i,j, eccf:integer;
 	cf: IInterface;
-	cfDir:string;
+	HeaderJson,cfDir:string;
 	Header: TJsonObject;
 begin
 	for i := FileCount - 1 downto 0 do begin
 		Cf := FileByIndex(i);
 		BeginUpdate(cf);
-		try
-			eccf := ElementCount(cf)
-			cfDir := forcedir(MainDir + '\' + FileName(cf) + '\');
-			Header := RecordToJson(ElementByIndex(cf, 0));
-			if FileExists(cfDir + 'header.json') then begin
-				
-				//if crc32 of header matches crc32 of plugin then skip plugin\
-				//unless the script has a major version number change
-			end else begin
-				//create the file
-				tempList := TStringlist.create;
-				TempList.add(Obj.ToJSON(false));
-				tempList.SaveToFile(cfDir + 'header.json');
+		//try
+			eccf := ElementCount(cf);
+			cfDir := MainDir + '\' + GetFileName(cf) + '\';
+			ForceDirectories(cfDir);
+			HeaderJson := cfDir + '\header.json';
+			Header := TJsonObject.Create;
+			if FileExists(HeaderJson) then begin
+				Header.LoadFromFile(HeaderJson, true);
+				//if Header.I['CRC'] = wbCRC32File(GetFileName(cf)) then continue;
 			end;
+			//create the file
+			Header := RecordToJson(ElementByIndex(cf, 0));
+			AddMessage(Header.ToJson(false));
+			Header.I['CRC'] := wbCRC32File(GetFileName(cf));
+			//AddMessage(HeaderJson);
+			Header.SaveToFile(HeaderJson, false, nil, true);
+			
 			if eccf > 0 then begin
-				for j := elementcount(cf) - 1 downto 1 do begin
-					GroupToJson(ElementByIndex(cf, j), cfDir);
+				for j := eccf - 1 downto 0 do begin
+					GrupToJson(ElementByIndex(cf, j), cfDir);
 				end;
 			end;
-		finally EndUpdate(cf);
-		end;
+		//finally 
+			EndUpdate(cf);
+		//end;
 	end;
 end;
 
-procedure GrupToJson(grup: IInterface, PluginPath: String);
+procedure GrupToJson(grup: IInterface; cfDir: String);
 var
 	Obj: TJsonObject;
+	aRecord: IInterface;
+	i: integer;
 begin
 	Obj := TJsonObject.Create;
 	aRecord := ElementByIndex(grup, 0);
 	try
 		Obj.S['Grup'] := Signature(aRecord);
-		for i := ElementCount(grup) - 1 downto 0 do begin
-			Obj.A['Records'].Add(RecordToJson(ElementByIndex(i)));
+		for i := 0 to ElementCount(grup) - 1 do begin
+		//for i := ElementCount(grup) - 1 downto 0 do begin
+			AddMessage(IntToStr(i));
+			Obj.A['Records'].Add(
+			RecordToJson(
+			ElementByIndex(grup, 
+			i)));
 		end;
 		//print to file using 'AddMessage(Obj.ToJSON({Compact:=}False));'
 	finally
-		tempList := TStringlist.create;
-		TempList.add(Obj.ToJSON(false));
-		tempList.SaveToFile(PluginPath + Signature(arecord) + '.json');
+		AddMessage(Obj.ToJson(false));
+		Obj.SaveToFile(cfDir + '/' + Signature(arecord) + '.json', false, nil, true);
 		Obj.Free;
 	end;
 end;
@@ -70,18 +80,19 @@ begin
 			CE := ElementByIndex(CR, i);
 			cp := path(CE);
 			while ContainsText(cp, ' \ ') do begin
-				cpi := POS(' \ ', Path(CP));
-				cp := copy(cp, cpi + 4, lenght(cp));
+				cpi := pos(' \ ', CP);
+				cp := copy(cp, cpi + 1, length(cp));
 			end;
 			if assigned(ce) then begin
-				if ElementCount(ce) <> 0 then
-					CrJson.A[cp].Add(RecordToJson(ce));
+				if not ElementCount(ce) = 0 then
+					CrJson.A[cp].Add(RecordToJson(ce))
 				else 
 					crJson.S[cp] := GetEditValue(CE);
 			end;
 		end;
 	finally
 		result := CRJson;
-		CRJson.Free;
 	end;
 end;
+
+end.
