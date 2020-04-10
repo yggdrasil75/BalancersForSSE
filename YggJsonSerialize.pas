@@ -1,36 +1,36 @@
 unit YggJsonSerialize;
 
 const
-	MainDir = DataPath + '/tools/YggScript/Jsons/';
+	MainDir = DataPath + '\tools\YggScript\Jsons\';
 	
 function initialize: integer;
 var
 	i,j, eccf:integer;
 	cf: IInterface;
-	cfDir:string;
+	HeaderJson,cfDir:string;
 	Header: TJsonObject;
 begin
-	for i := FileCount - 1 downto 0 do begin
+	for i := FileCount - 1 downto 1 do begin
 		Cf := FileByIndex(i);
 		BeginUpdate(cf);
 		try
 			eccf := ElementCount(cf);
 			cfDir := ForceDirectories(MainDir + '\' + GetFileName(cf) + '\');
-			Header := RecordToJson(ElementByIndex(cf, 0));
-			HeaderJson := cfDir + 'header.json';
+			HeaderJson := cfDir + '\header.json';
+			Header := TJsonObject.Create;
 			if FileExists(HeaderJson) then begin
-				Header := LoadFromFile(HeaderJson, true, nil);
-				if GetString('CRC') = wbCRC32File(GetFileName(cf)) then continue;
-				//unless the script has a major version number change
-			end else begin
-				//create the file
-				tempList := TStringlist.create;
-				TempList.add(Obj.ToJSON(false));
-				tempList.SaveToFile(HeaderJson);
+				Header.LoadFromFile(HeaderJson, true);
+				if Header.I['CRC'] = wbCRC32File(GetFileName(cf)) then continue;
 			end;
+			//create the file
+			Header := RecordToJson(ElementByIndex(cf, 0));
+			AddMessage(Header.ToJson(false));
+			Header.I['CRC'] := wbCRC32File(GetFileName(cf));
+			//Header.SaveToFile(HeaderJson, false, nil, true);
+			
 			if eccf > 0 then begin
 				for j := elementcount(cf) - 1 downto 1 do begin
-					GroupToJson(ElementByIndex(cf, j), cfDir);
+					GrupToJson(ElementByIndex(cf, j), cfDir);
 				end;
 			end;
 		finally EndUpdate(cf);
@@ -51,9 +51,7 @@ begin
 		end;
 		//print to file using 'AddMessage(Obj.ToJSON({Compact:=}False));'
 	finally
-		tempList := TStringlist.create;
-		TempList.add(Obj.ToJSON(false));
-		tempList.SaveToFile(PluginPath + Signature(arecord) + '.json');
+		Obj.SaveToFile(PluginPath + Signature(arecord) + '.json', false, nil, true);
 		Obj.Free;
 	end;
 end;
@@ -72,10 +70,10 @@ begin
 			cp := path(CE);
 			while ContainsText(cp, ' \ ') do begin
 				cpi := pos(' \ ', CP);
-				cp := copy(cp, cpi + 4, length(cp));
+				cp := copy(cp, cpi + 1, length(cp));
 			end;
 			if assigned(ce) then begin
-				if ElementCount(ce) <> 0 then
+				if not ElementCount(ce) = 0 then
 					CrJson.A[cp].Add(RecordToJson(ce))
 				else 
 					crJson.S[cp] := GetEditValue(CE);
@@ -83,7 +81,6 @@ begin
 		end;
 	finally
 		result := CRJson;
-		CRJson.Free;
 	end;
 end;
 
